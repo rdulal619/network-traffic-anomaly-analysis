@@ -24,3 +24,12 @@ SELECT
 FROM network_logs
 GROUP BY protocol
 HAVING COUNT(*) > 1000;
+
+-- Q4: Records where packet size is greater than overall average
+SELECT *
+FROM network_logs
+WHERE packet_size > (
+    SELECT AVG(packet_size)
+    FROM network_logs
+);
+
