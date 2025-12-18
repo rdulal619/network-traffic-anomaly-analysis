@@ -7,3 +7,12 @@ SELECT
     SUM(bytes_transferred) AS total_bytes
 FROM network_logs
 GROUP BY protocol;
+
+-- Q2: Top 5 source IPs by total bytes transferred
+SELECT
+    src_ip,
+    SUM(bytes_transferred) AS total_bytes
+FROM network_logs
+GROUP BY src_ip
+ORDER BY total_bytes DESC
+LIMIT 5;
