@@ -33,3 +33,14 @@ WHERE packet_size > (
     FROM network_logs
 );
 
+-- Q5: Rank destinations by total bytes transferred per source IP
+SELECT
+    src_ip,
+    dest_ip,
+    SUM(bytes_transferred) AS total_bytes,
+    RANK() OVER (
+        PARTITION BY src_ip
+        ORDER BY SUM(bytes_transferred) DESC
+    ) AS destination_rank
+FROM network_logs
+GROUP BY src_ip, dest_ip;
